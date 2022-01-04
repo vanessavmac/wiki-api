@@ -68,5 +68,5 @@ module.exports = {
   getArticleByTitle,
   createArticle,
   updateArticle,
-  deleteArticle,
+  deleteArticle
 }

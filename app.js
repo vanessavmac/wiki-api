@@ -7,11 +7,11 @@ const db = require(__dirname + '/queries')
 const app = express()
 const port = 3000
 
-//app.use(express.static("public"));
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.get('/', (req, res) => {
-  res.send("Homepage.")
+  res.sendFile(__dirname + "/homepage.html");
 })
 
 app.listen(port, () => {
