@@ -6,17 +6,15 @@ const bodyParser = require('body-parser')
 const db = require(__dirname + '/queries')
 
 const app = express()
-const port = 3000
 
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({extended:true}));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + "/homepage.html");
 })
 
-app.listen(port, () => {
-  console.log(`App running on port ${port}.`)
+app.listen(3000, () => {
+  console.log(`App running on port 3000.`)
 })
 
 app.get('/articles', db.getAllArticles)
