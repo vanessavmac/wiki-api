@@ -8,30 +8,44 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 })
 
+const fs = require('fs')
+
 const getAllArticles = (req, res) => {
   pool.query('SELECT * FROM articles ORDER BY id ASC', (error, results) => {
     if (error) {
       throw error
     }
-    res.status(200).json(results.rows)
+
+    const content = JSON.stringify(results.rows);
+    fs.writeFile(__dirname + '/public/query-result.json', content, err => {
+      if (err) {
+        console.error(err)
+      } else {
+        res.sendFile(__dirname + "/article-list.html")
+      }
+    })
   })
 }
 
 const getArticleByTitle = (req, res) => {
+  console.log(req)
   const title = parseInt(req.params.title)
 
   pool.query('SELECT * FROM articles WHERE title = $1', [title], (error, results) => {
     if (error) {
       throw error
     }
-    res.status(200).json(results.rows)
   })
 }
 
 const createArticle = (req, res) => {
-  const { title, content } = req.body
+  console.log(req)
+  const {
+    title,
+    content
+  } = req.body
 
-  pool.query('INSERT INTO articles (title,content) VALUES ($1, $2)', [title,content], (error, results) => {
+  pool.query('INSERT INTO articles (title,content) VALUES ($1, $2)', [title, content], (error, results) => {
     if (error) {
       throw error
     }
@@ -44,13 +58,12 @@ const updateArticle = (req, res) => {
   const content = req.body.content
   console.log(title)
   console.log(content)
-  pool.query('UPDATE articles SET content = $1 WHERE title = $2',[content, title], (error, results) => {
-      if (error) {
-        throw error
-      }
-      res.status(200).send(`Article modified.`)
+  pool.query('UPDATE articles SET content = $1 WHERE title = $2', [content, title], (error, results) => {
+    if (error) {
+      throw error
     }
-  )
+    res.status(200).send(`Article modified.`)
+  })
 }
 
 const deleteArticle = (req, res) => {

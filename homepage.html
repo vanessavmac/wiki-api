@@ -15,34 +15,49 @@
   <link href="css/styles.css" rel="stylesheet">
 </head>
 
-<body class="text-center">
+<body class="text-center" onload="hideForm()">
   <div class="options">
     <h1 class="h3 mb-3 font-weight-normal">Wiki-API</h1>
     <form action="/articles" class="form" method="GET">
       <button class="btn btn-lg btn-primary btn-block" type="submit">Get All Articles</button>
     </form>
-    <button class="btn btn-lg btn-primary btn-block" onclick="inputTitle()">Get Article By Title</button>
-    <button class="btn btn-lg btn-primary btn-block" onclick="inputTitleContent()">Create An Article</button>
+
+    <button class="btn btn-lg btn-primary btn-block" onclick="getArticleByTitleUI()">Get Article By Title</button>
+    <button class="btn btn-lg btn-primary btn-block" >Create An Article</button>
     <button class="btn btn-lg btn-primary btn-block" type="inputTitleContent()">Update An Article</button>
     <button class="btn btn-lg btn-primary btn-block" type="inputTitle()">Delete An Article</button>
 
-    <form class="form-control">
-      <div>
+    <form id="details-form" class="form-control">
+      <div id="input1">
         <label for="inputTitle" class="form-label">Title</label>
         <input class="form-control" id="inputTitle">
       </div>
-      <div>
+      <div id="input2">
         <label for="exampleFormControlTextarea1">Content</label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button id="submitInput" class="btn btn-primary">Submit</button>
     </form>
 
     <p class="mt-5 mb-3 text-muted">Created using Bootstrap.</p>
   </div>
 
   <script type="text/javascript">
-    onload()
+    function hideForm() {
+      var form = document.getElementById("details-form");
+      form.style.display = "none";
+    }
+
+    function getArticleByTitleUI() {
+      var form = document.getElementById("details-form");
+      form.style.display = "block";
+
+      var input2 = document.getElementById("input2");
+      input2.style.display = "none";
+
+      var submit = document.getElementById("submitInput");
+      submit.setAttribute("onclick", "getArticleByTitle(title)");
+    }
   </script>
 </body>
 

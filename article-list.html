@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h1>Results</h1>
-    
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <h1>Results</h1>
+  <div id="articleList"></div>
+
+  <script>
+    fetch('./query-result.json')
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        appendData(data);
+      })
+      .catch(function(err) {
+        console.log('error: ' + err);
+      });
+
+    function appendData(data) {
+      var mainContainer = document.getElementById("articleList");
+      for (var i = 0; i < data.length; i++) {
+        var div = document.createElement("div");
+        div.innerHTML = 'Title: ' + data[i].title + '<br /> ' + data[i].content + '<br />';
+        mainContainer.appendChild(div);
+      }
+    }
+  </script>
+</body>
+
 </html>
