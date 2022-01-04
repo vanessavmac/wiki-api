@@ -9,6 +9,7 @@
   "author": "Vanessa Mac",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "pg": "^8.7.1"
   }
