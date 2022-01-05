@@ -28,9 +28,7 @@ const getAllArticles = (req, res) => {
 }
 
 const getArticleByTitle = (req, res) => {
-  console.log(req)
   const title = req.params.title
-  console.log(title)
   pool.query('SELECT * FROM articles WHERE title = $1', [title], (error, results) => {
     if (error) {
       throw error
@@ -48,7 +46,6 @@ const getArticleByTitle = (req, res) => {
 }
 
 const createArticle = (req, res) => {
-  console.log(req)
   const {
     title,
     content
@@ -64,9 +61,7 @@ const createArticle = (req, res) => {
 
 const updateArticle = (req, res) => {
   const title = req.params.title
-  const content = req.body.content
-  console.log(title)
-  console.log(content)
+  const content = req.query.content
   pool.query('UPDATE articles SET content = $1 WHERE title = $2', [content, title], (error, results) => {
     if (error) {
       throw error
@@ -77,6 +72,7 @@ const updateArticle = (req, res) => {
 
 const deleteArticle = (req, res) => {
   const title = req.params.title
+  console.log(req)
   pool.query('DELETE FROM articles WHERE title = $1', [title], (error, results) => {
     if (error) {
       throw error

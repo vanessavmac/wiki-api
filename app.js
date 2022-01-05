@@ -3,9 +3,10 @@ require('dotenv').config()
 const express = require('express')
 const https = require('https')
 const db = require(__dirname + '/queries')
+const bodyParser = require("body-parser");
 
 const app = express()
-
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
 app.get('/', (req, res) => {
@@ -19,5 +20,5 @@ app.listen(3000, () => {
 app.get('/articles', db.getAllArticles)
 app.get('/articles/:title', db.getArticleByTitle)
 app.post('/articles', db.createArticle)
-app.put('/articles/:title', db.updateArticle)
-app.delete('/articles/:title', db.deleteArticle)
+app.post('/articles/update/:title', db.updateArticle)
+app.post('/articles/delete/:title', db.deleteArticle)
