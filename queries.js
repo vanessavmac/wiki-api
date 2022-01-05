@@ -55,7 +55,21 @@ const createArticle = (req, res) => {
     if (error) {
       throw error
     }
-    res.status(201).send(`Article added.`)
+
+    pool.query('SELECT * FROM articles ORDER BY id ASC', (error, results) => {
+      if (error) {
+        throw error
+      }
+
+      const content = JSON.stringify(results.rows);
+      fs.writeFile(__dirname + '/public/query-result.json', content, err => {
+        if (err) {
+          console.error(err)
+        } else {
+          res.sendFile(__dirname + "/article-list.html")
+        }
+      })
+    })
   })
 }
 
@@ -66,7 +80,20 @@ const updateArticle = (req, res) => {
     if (error) {
       throw error
     }
-    res.status(200).send(`Article modified.`)
+    pool.query('SELECT * FROM articles ORDER BY id ASC', (error, results) => {
+      if (error) {
+        throw error
+      }
+
+      const content = JSON.stringify(results.rows);
+      fs.writeFile(__dirname + '/public/query-result.json', content, err => {
+        if (err) {
+          console.error(err)
+        } else {
+          res.sendFile(__dirname + "/article-list.html")
+        }
+      })
+    })
   })
 }
 
@@ -77,7 +104,20 @@ const deleteArticle = (req, res) => {
     if (error) {
       throw error
     }
-    res.status(200).send(`Article deleted with title: ${title}`)
+    pool.query('SELECT * FROM articles ORDER BY id ASC', (error, results) => {
+      if (error) {
+        throw error
+      }
+
+      const content = JSON.stringify(results.rows);
+      fs.writeFile(__dirname + '/public/query-result.json', content, err => {
+        if (err) {
+          console.error(err)
+        } else {
+          res.sendFile(__dirname + "/article-list.html")
+        }
+      })
+    })
   })
 }
 
