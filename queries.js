@@ -29,12 +29,21 @@ const getAllArticles = (req, res) => {
 
 const getArticleByTitle = (req, res) => {
   console.log(req)
-  const title = parseInt(req.params.title)
-
+  const title = req.params.title
+  console.log(title)
   pool.query('SELECT * FROM articles WHERE title = $1', [title], (error, results) => {
     if (error) {
       throw error
     }
+
+    const content = JSON.stringify(results.rows);
+    fs.writeFile(__dirname + '/public/query-result.json', content, err => {
+      if (err) {
+        console.error(err)
+      } else {
+        res.sendFile(__dirname + "/article-list.html")
+      }
+    })
   })
 }
 
@@ -43,7 +52,7 @@ const createArticle = (req, res) => {
   const {
     title,
     content
-  } = req.body
+  } = req.query
 
   pool.query('INSERT INTO articles (title,content) VALUES ($1, $2)', [title, content], (error, results) => {
     if (error) {
