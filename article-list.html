@@ -3,12 +3,32 @@
 
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Wiki-API</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+  <link href="css/article-list.css" rel="stylesheet">
 </head>
 
 <body>
   <h1>Results</h1>
-  <div id="articleList"></div>
+  <div id="articleList">
+    <table id="table">
+      <thead>
+        <tr>
+          <th data-field="title">Title</th>
+          <th data-field="content">Content</th>
+        </tr>
+      </thead>
+    </table>
+
+    <a href="/"><button class="btn btn-primary">Home</button></a>
+
+  </div>
+
 
   <script>
     fetch('/query-result.json') //take note of the / (in public folder)
@@ -22,13 +42,33 @@
         console.log('error: ' + err);
       });
 
-    function appendData(data) {
-      var mainContainer = document.getElementById("articleList");
-      for (var i = 0; i < data.length; i++) {
-        var div = document.createElement("div");
-        div.innerHTML = 'Title: ' + data[i].title + '<br /> ' + data[i].content + '<br />';
-        mainContainer.appendChild(div);
-      }
+    function appendData(file) {
+      $('#table').bootstrapTable({
+        data: file
+      });
+      // const headers = ['title', 'content']
+      // //Create Table
+      // var table = document.createElement("table");
+      // $(table).attr("class","table")
+      // //Table Header
+      // var tr = table.insertRow();
+      // for (var i = 0; i < headers.length; i++) {
+      //   var th = document.createElement("th"); // TABLE HEADER.
+      //   th.innerHTML = headers[i];
+      //   tr.appendChild(th);
+      // }
+      //
+      // for (var i = 0; i < data.length; i++) {
+      //   tr = table.insertRow();
+      //   var cell1 = tr.insertCell();
+      //   var cell2 = tr.insertCell();
+      //
+      //   cell1.innerHTML = data[i].title;
+      //   cell2.innerHTML = data[i].content;
+      // }
+      // var mainContainer = document.getElementById("articleList");
+      // mainContainer.innerHTML = "";
+      // mainContainer.appendChild(table);
     }
   </script>
 </body>

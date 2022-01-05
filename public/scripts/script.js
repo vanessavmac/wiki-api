@@ -11,25 +11,32 @@ function hideForm() {
 
 function getArticleByTitleUI() {
   form.style.display = "block";
+  input1.style.display = "block";
   input2.style.display = "none";
+  submit.style.display = "block";
   submit.setAttribute("onclick", "getArticleByTitle()");
 }
 
 function createArticleUI() {
-  var form = document.getElementById("details-form");
   form.style.display = "block";
+  input1.style.display = "block";
+  input2.style.display = "block";
+  submit.style.display = "block";
   submit.setAttribute("onclick", "createArticle()");
 }
 
 function updateArticleUI() {
-  var form = document.getElementById("details-form");
   form.style.display = "block";
+  input1.style.display = "block";
+  input2.style.display = "block";
+  submit.style.display = "block";
   submit.setAttribute("onclick", "updateArticle()");
 }
 
 function deleteArticleUI() {
-  var form = document.getElementById("details-form");
   form.style.display = "block";
+  input1.style.display = "block";
+  submit.style.display = "block";
   input2.style.display = "none";
   submit.setAttribute("onclick", "deleteArticle()");
 }
