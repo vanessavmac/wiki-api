@@ -2,7 +2,7 @@
 
 A personal dictionary web app.
 
-A RESTful API created with Node.js, Express.js, and PostgreSQL. Performs CRUD operations on a list of terms and definitions inputted by the user.
+A RESTful API created with Node.js, Express.js, and PostgreSQL. Performs CRUD operations on a database of terms and definitions inputted by the user.
 
 Demo Video: https://drive.google.com/file/d/1bbJ2RomJvUdV4U1i3tLWhresdH0Sf516/view?usp=sharing
 
